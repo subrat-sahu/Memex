@@ -18,6 +18,10 @@ import { OLD_EXT_KEYS } from 'src/options/imports/constants'
 import index from 'src/search/search-index'
 import analytics from 'src/analytics'
 
+import Pipeline from 'src/util/pipeline'
+
+window.Pipeline = Pipeline
+
 export const OVERVIEW_URL = '/overview/overview.html'
 export const OLD_EXT_UPDATE_KEY = 'updated-from-old-ext'
 export const UPDATE_URL = '/update/update.html'
