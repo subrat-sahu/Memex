@@ -18,7 +18,7 @@ import { OLD_EXT_KEYS } from 'src/options/imports/constants'
 import index from 'src/search/search-index'
 import analytics from 'src/analytics'
 
-import Pipeline from 'src/util/pipeline'
+import Pipeline from 'src/util/pipeline/pipeline'
 
 window.Pipeline = Pipeline
 
