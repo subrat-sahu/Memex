@@ -3,15 +3,22 @@
     "short_name": "Memex",
     "version": "0.1.0.1021",
     "offline_enabled": true,
-    "description":
-        "Find previously visited websites & PDFs in seconds. Full-text search your browsing history and bookmarks.",
+    "description": "Find previously visited websites & PDFs in seconds. Full-text search your browsing history and bookmarks.",
     "background": {
-        "scripts": ["lib/browser-polyfill.js", "background.js"]
+        "scripts": [
+            "lib/browser-polyfill.js",
+            "background.js"
+        ]
     },
     "content_scripts": [
         {
-            "matches": ["<all_urls>"],
-            "js": ["lib/browser-polyfill.js", "content_script.js"],
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "lib/browser-polyfill.js",
+                "content_script.js"
+            ],
             "run_at": "document_start"
         }
     ],
@@ -21,14 +28,31 @@
     },
     "commands": {
         "openOverview": {
-            "description": "Open search overview"
+            "description": "Open search overview",
+            "suggested_key": {
+                "default": "Ctrl+B",
+                "mac": "Command+B"
+            }
         },
         "bookmarkPage": {
-            "description": "Bookmark current page"
+            "description": "Bookmark current page",
+            "suggested_key": {
+                "default": "Ctrl+Shift+S",
+                "mac": "Command+Shift+S"
+            }
+        },
+        "configureShortcuts": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+0",
+                "mac": "Command+Shift+0"
+            },
+            "description": "Configure shortcuts",
+            "global": true
         },
         "_execute_browser_action": {
             "suggested_key": {
-                "default": "MacCtrl+Shift+T"
+                "default": "Ctrl+Shift+K",
+                "mac": "Command+Shift+K"
             }
         }
     },
@@ -55,8 +79,13 @@
         "unlimitedStorage",
         "storage"
     ],
-    "web_accessible_resources": ["/lib/pdf.worker.min.js"],
-    "omnibox": { "keyword": "w" },
+    "web_accessible_resources": [
+        "/lib/pdf.worker.min.js",
+        "/shortcuts.js"
+    ],
+    "omnibox": {
+        "keyword": "w"
+    },
     "options_ui": {
         "page": "./options/options.html",
         "open_in_tab": true

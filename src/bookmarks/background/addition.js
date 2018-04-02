@@ -7,6 +7,7 @@ import { transformToBookmarkDoc } from 'src/imports'
 import { generatePageDocId } from 'src/page-storage'
 import { generateBookmarkDocId } from 'src/bookmarks'
 import storePage from 'src/page-storage/store-page'
+import { BOOKMARK_EXIST_ERROR } from 'src/background'
 
 async function getAttachments(pageData) {
     const favIconBlob = await dataURLToBlob(pageData.favIconURI)
@@ -66,7 +67,11 @@ export async function createBookmarkByUrl(url, tabId) {
 
     // Already bookmarked
     if (pageDoc != null && pageDoc.bookmarks.size > 0) {
-        throw new Error(`Bookmark already exists for page with URL: ${url}`)
+        const err = new Error(
+            `Bookmark already exists for page with URL: ${url}`,
+        )
+        err.name = BOOKMARK_EXIST_ERROR
+        throw err
     }
 
     // Generally the page will always exist, but this is to catch that if not
