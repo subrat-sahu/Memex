@@ -9,6 +9,7 @@ import styles from './Overview.css'
 import ShareButtons from './ShareButtons'
 import Tooltip from './Tooltip'
 import Head from 'src/options/containers/Head'
+import ListSideBar from 'src/custom-lists/components/overview/Index'
 
 const showFilterClass = ({ showFilters }) =>
     classNames({
@@ -21,13 +22,14 @@ const Overview = props => (
         <Head />
         <Header {...props} />
 
-        <Tooltip
+        {/* <Tooltip
             showTooltip={props.showTooltip}
             toggleShowTooltip={props.toggleShowTooltip}
             tooltip={props.tooltip}
             fetchNextTooltip={props.fetchNextTooltip}
             isTooltipRenderable={props.isTooltipRenderable}
-        />
+        /> */}
+        <ListSideBar />
 
         <ShareButtons />
 
