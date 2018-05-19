@@ -7,8 +7,8 @@ import DeleteConfirmModal from './DeleteConfirmModal'
 import Header from './Header'
 import styles from './Overview.css'
 import ShareButtons from './ShareButtons'
-import Tooltip from './Tooltip'
 import Head from 'src/options/containers/Head'
+// import Tooltip from './Tooltip'
 import ListSideBar from 'src/custom-lists/components/overview/Index'
 
 const showFilterClass = ({ showFilters }) =>
@@ -57,11 +57,11 @@ Overview.propTypes = {
     deleteDocs: PropTypes.func.isRequired,
     showFilters: PropTypes.bool.isRequired,
     filters: PropTypes.node.isRequired,
-    showTooltip: PropTypes.bool.isRequired,
-    toggleShowTooltip: PropTypes.func.isRequired,
-    tooltip: PropTypes.object,
-    fetchNextTooltip: PropTypes.func.isRequired,
-    isTooltipRenderable: PropTypes.bool.isRequired,
+    // showTooltip: PropTypes.bool.isRequired,
+    // toggleShowTooltip: PropTypes.func.isRequired,
+    // tooltip: PropTypes.object,
+    // fetchNextTooltip: PropTypes.func.isRequired,
+    // isTooltipRenderable: PropTypes.bool.isRequired,
 }
 
 export default Overview
