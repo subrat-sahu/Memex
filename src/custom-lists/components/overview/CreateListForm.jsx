@@ -19,6 +19,7 @@ const CreateListForm = props => {
                     className={styles.listForm}
                     name="listName"
                     type="text"
+                    autoComplete="off"
                     placeHolder="List Name"
                     defaultValue={props.value}
                     autoFocus
