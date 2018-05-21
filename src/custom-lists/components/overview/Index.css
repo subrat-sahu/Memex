@@ -4,6 +4,7 @@
     padding: 12px 0px;
     font-size: 1.55em;
     text-align: center;
+    cursor: pointer;
 }
 
 .hr {
@@ -62,20 +63,19 @@
     background: #fcfbfb;
     display: flex;
     align-items: center;
-    justify-content: center;
     height: 50px;
     color: #767676;
     position: relative;
-}
 
-.pageList :hover {
-    background: #d7d7d7;
+    &:hover {
+        background-color: #d7d7d7;
+    }
 }
 
 .editButton {
     background-image: url('/img/pen.svg');
-    width: 45px;
-    height: 40px;
+    width: 36px;
+    height: 32px;
     float: left;
     position: absolute;
     left: 0px;
@@ -83,11 +83,11 @@
 
 .deleteButton {
     background-image: url('/img/cross_circle.svg');
-    width: 25px;
-    height: 25px;
+    width: 19px;
+    height: 19px;
     float: right;
     position: absolute;
-    right: 0px;
+    right: 7px;
 }
 
 .button {
@@ -105,7 +105,8 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 0px 34px;
-    font-size: 1.55em;
+    padding: 0px 15px 2px 30px;
+    font-size: 1.4em;
     font-weight: 300;
+    cursor: pointer;
 }
