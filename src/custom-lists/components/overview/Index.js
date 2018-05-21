@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../../actions'
 import * as selectors from '../../selectors'
 import extStyles from './Index.css'
-import List from './MyCollections'
+import MyCollection from './MyCollections'
 import CreateListForm from './CreateListForm'
 import ListItem from './ListItem'
 import DeleteConfirmModal from './DeleteConfirmModal'
@@ -55,6 +55,10 @@ class ListContainer extends Component {
                     key={i}
                     listName={list.name}
                     onEditButtonClick={this.props.handleEditBtnClick(i)}
+                    onAddPageToList={this._listStorageHandler.addPagetoList(
+                        list._id,
+                        i,
+                    )}
                     onCrossButtonClick={this.props.handleCrossBtnClick(
                         list._id,
                         i,
@@ -88,7 +92,7 @@ class ListContainer extends Component {
 
                     <hr className={extStyles.hr} />
 
-                    <List
+                    <MyCollection
                         handleRenderCreateList={this.handleRenderCreateList}
                     />
 

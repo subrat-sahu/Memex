@@ -14,7 +14,6 @@ const List = props => (
 )
 
 List.propTypes = {
-    // renderCreateList: PropTypes.func.isRequired,
     handleRenderCreateList: PropTypes.func.isRequired,
 }
 
