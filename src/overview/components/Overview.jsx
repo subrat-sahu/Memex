@@ -8,13 +8,18 @@ import Header from './Header'
 import styles from './Overview.css'
 import ShareButtons from './ShareButtons'
 import Head from 'src/options/containers/Head'
-// import Tooltip from './Tooltip'
-import ListSideBar from 'src/custom-lists/components/overview/Index'
+import { ListSideBar } from 'src/custom-lists/components'
 
 const showFilterClass = ({ showFilters }) =>
     classNames({
         [styles.filtersContainer]: true,
         [styles.hideFilter]: !showFilters,
+    })
+
+const showListDropdown = ({ showListDropdown }) =>
+    classNames({
+        [styles.filtersContainer]: true,
+        [styles.hideFilter]: !showListDropdown,
     })
 
 const Overview = props => (
@@ -32,12 +37,15 @@ const Overview = props => (
         <ListSideBar />
 
         <ShareButtons />
-
+        <div className={showListDropdown(props)}>{props.listEditDropdown}</div>
         <div className={showFilterClass(props)}>{props.filters}</div>
         <div
             className={styles.main}
             style={{
-                marginTop: props.showFilters ? '180px' : '100px',
+                marginTop:
+                    props.showListDropdown || props.showFilters
+                        ? '180px'
+                        : '100px',
             }}
         >
             {props.children}
@@ -57,6 +65,8 @@ Overview.propTypes = {
     deleteDocs: PropTypes.func.isRequired,
     showFilters: PropTypes.bool.isRequired,
     filters: PropTypes.node.isRequired,
+    listEditDropdown: PropTypes.node.isRequired,
+    showListDropdown: PropTypes.bool.isRequired,
     // showTooltip: PropTypes.bool.isRequired,
     // toggleShowTooltip: PropTypes.func.isRequired,
     // tooltip: PropTypes.object,
