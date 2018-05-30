@@ -4,13 +4,13 @@ import PropTypes from 'prop-types'
 import { slide as Menu } from 'react-burger-menu'
 import { bindActionCreators } from 'redux'
 
-import * as actions from '../../actions'
-import * as selectors from '../../selectors'
+import { actions, selectors } from 'src/custom-lists'
 import extStyles from './Index.css'
 import MyCollection from './MyCollections'
 import CreateListForm from './CreateListForm'
 import ListItem from './ListItem'
 import DeleteConfirmModal from './DeleteConfirmModal'
+import { actions as filterActs } from 'src/overview/filters'
 
 import { styles } from './ReactBurgerMenu'
 
@@ -22,6 +22,8 @@ class ListContainer extends Component {
         isDeleteConfShown: PropTypes.bool.isRequired,
         resetListDeleteModal: PropTypes.func.isRequired,
         handleCrossBtnClick: PropTypes.func.isRequired,
+        handleListItemClick: PropTypes.func.isRequired,
+        resetFilters: PropTypes.func.isRequired,
     }
 
     constructor(props) {
@@ -54,7 +56,12 @@ class ListContainer extends Component {
                 <ListItem
                     key={i}
                     listName={list.name}
+                    isFiltered={list.isFilterIndex}
                     onEditButtonClick={this.props.handleEditBtnClick(i)}
+                    onListItemClick={this.props.handleListItemClick(
+                        list._id,
+                        i,
+                    )}
                     onAddPageToList={this._listStorageHandler.addPagetoList(
                         list._id,
                         i,
@@ -82,30 +89,35 @@ class ListContainer extends Component {
     render() {
         return (
             <div>
-                <Menu
-                    styles={styles}
-                    noOverlay
-                    customBurgerIcon={<img src="/img/sidebar_icon.svg" />}
-                    customCrossIcon={<img src="/img/cross.svg" />}
-                >
-                    <a className={extStyles.showAll}>Show All</a>
+                <div>
+                    <Menu
+                        styles={styles}
+                        noOverlay
+                        customBurgerIcon={<img src="/img/sidebar_icon.svg" />}
+                        customCrossIcon={<img src="/img/cross.svg" />}
+                    >
+                        <a
+                            onClick={this.props.resetFilters}
+                            className={extStyles.showAll}
+                        >
+                            Show All
+                        </a>
 
-                    <hr className={extStyles.hr} />
+                        <hr className={extStyles.hr} />
 
-                    <MyCollection
-                        handleRenderCreateList={this.handleRenderCreateList}
-                    />
+                        <MyCollection
+                            handleRenderCreateList={this.handleRenderCreateList}
+                        />
 
-                    {this.renderCreateList(this.state.showCreateList)}
-
-                    {this.renderAllLists()}
-
-                    <DeleteConfirmModal
-                        isShown={this.props.isDeleteConfShown}
-                        onClose={this.props.resetListDeleteModal}
-                        deleteList={this._listStorageHandler.deleteList()}
-                    />
-                </Menu>
+                        {this.renderCreateList(this.state.showCreateList)}
+                        <div>{this.renderAllLists()}</div>
+                        <DeleteConfirmModal
+                            isShown={this.props.isDeleteConfShown}
+                            onClose={this.props.resetListDeleteModal}
+                            deleteList={this._listStorageHandler.deleteList()}
+                        />
+                    </Menu>
+                </div>
             </div>
         )
     }
@@ -120,6 +132,7 @@ const mapDispatchToProps = (dispatch, getState) => ({
     ...bindActionCreators(
         {
             resetListDeleteModal: actions.resetListDeleteModal,
+            resetFilters: filterActs.resetFilters,
         },
         dispatch,
     ),
@@ -132,6 +145,13 @@ const mapDispatchToProps = (dispatch, getState) => ({
         event.preventDefault()
         dispatch(actions.showListDeleteModal(_id, index))
     },
+    handleListItemClick: (_id, index) => () => {
+        dispatch(actions.toggleListFilterIndex(index))
+        dispatch(filterActs.toggleListFilter(_id))
+    },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListContainer)
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(ListContainer)
