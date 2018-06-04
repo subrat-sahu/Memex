@@ -352,7 +352,7 @@ const mapDispatchToProps = dispatch => ({
     handleToggleUrlToEdit: ({ url }) => () =>
         dispatch(listActs.toggleUrlToEdit(url)),
     handleCrossRibbonClick: ({ url }) => event => {
-        dispatch(listActs.removePageFromList(url))
+        // dispatch(listActs.delPageFromList(url))
         dispatch(actions.hideResultItem(url))
     },
 })
