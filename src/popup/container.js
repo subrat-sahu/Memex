@@ -58,6 +58,7 @@ class PopupContainer extends Component {
         blacklistChoice: false,
         blacklistConfirm: false,
         tagMode: false,
+        listMode: false,
 
         // Behaviour switching flags
         domainDelete: false,
@@ -340,6 +341,12 @@ class PopupContainer extends Component {
             tagMode: !state.tagMode,
         }))
 
+    toggleListPopup = () =>
+        this.setState(state => ({
+            ...state,
+            listMode: !state.listMode,
+        }))
+
     renderTagButton() {
         return (
             <Button
@@ -352,8 +359,24 @@ class PopupContainer extends Component {
         )
     }
 
+    renderAddToList = () => (
+        <Button
+            onClick={this.toggleListPopup}
+            disabled={this.isTagBtnDisabled}
+            btnClass={styles.addToList}
+        >
+            Add To List
+        </Button>
+    )
+
     renderChildren() {
-        const { blacklistConfirm, pauseValue, isPaused, tagMode } = this.state
+        const {
+            blacklistConfirm,
+            pauseValue,
+            isPaused,
+            tagMode,
+            listMode,
+        } = this.state
         if (blacklistConfirm) {
             return (
                 <BlacklistConfirm
@@ -371,6 +394,10 @@ class PopupContainer extends Component {
                     source="tag"
                 />
             )
+        }
+
+        if (listMode) {
+            return <div>Add List</div>
         }
 
         return (
@@ -394,6 +421,7 @@ class PopupContainer extends Component {
                         : 'Bookmark this Page'}
                 </Button>
                 {this.renderTagButton()}
+                {this.renderAddToList()}
                 <hr />
                 <HistoryPauser
                     onConfirm={this.onPauseConfirm}
