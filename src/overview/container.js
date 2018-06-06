@@ -53,6 +53,9 @@ class OverviewContainer extends Component {
         listStorageHandler: PropTypes.func.isRequired,
         isListFilterActive: PropTypes.bool.isRequired,
         handleCrossRibbonClick: PropTypes.func.isRequired,
+        urlsAdded: PropTypes.arrayOf(PropTypes.string).isRequired,
+        urlDragged: PropTypes.string.isRequired,
+        setUrlDragged: PropTypes.func.isRequired,
     }
 
     constructor(props) {
@@ -140,6 +143,8 @@ class OverviewContainer extends Component {
                 showListDropdown={this.props.showListDropdown}
                 handleToggleUrlToEdit={this.props.handleToggleUrlToEdit(doc)}
                 handleCrossRibbonClick={this.props.handleCrossRibbonClick(doc)}
+                urlsAdded={this.props.urlsAdded}
+                setUrlDragged={this.props.setUrlDragged}
                 {...doc}
             />
         ))
@@ -261,6 +266,25 @@ class OverviewContainer extends Component {
 
     renderListDropdown = () => <ListEditDropdown />
 
+    renderDragElement = () => {
+        let pagesDragged = 1
+        const { urlDragged, urlsAdded } = this.props
+        if (urlsAdded.length && urlsAdded.indexOf(urlDragged) > -1) {
+            pagesDragged = urlsAdded.length
+        }
+
+        return (
+            <span
+                id="dragged-element"
+                className={localStyles.dragElement}
+                href="#"
+            >
+                {' '}
+                Add {pagesDragged} page(s)
+            </span>
+        )
+    }
+
     render() {
         return (
             <Wrapper>
@@ -272,6 +296,7 @@ class OverviewContainer extends Component {
                     listEditDropdown={this.renderListDropdown()}
                     onQuerySearchKeyDown={this.handleSearchEnter}
                     isSearchDisabled={this.props.showOnboarding}
+                    renderDragElement={this.renderDragElement()}
                 >
                     {this.renderResults()}
                 </Overview>
@@ -302,6 +327,8 @@ const mapStateToProps = state => ({
     isTooltipRenderable: selectors.isTooltipRenderable(state),
     isListFilterActive: filters.listFilterActive(state),
     showListDropdown: customLists.listEditDropdown(state),
+    urlsAdded: customLists.getUrlsToEdit(state),
+    urlDragged: customLists.getUrlDragged(state),
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -318,6 +345,7 @@ const mapDispatchToProps = dispatch => ({
             fetchNextTooltip: actions.fetchNextTooltip,
             init: actions.init,
             onListDropdownChange: listActs.toggleListDropdown,
+            setUrlDragged: listActs.setUrlDragged,
         },
         dispatch,
     ),

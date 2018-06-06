@@ -55,6 +55,7 @@ const Overview = props => (
             onClose={props.resetDeleteConfirm}
             deleteDocs={props.deleteDocs}
         />
+        {props.renderDragElement}
     </Wrapper>
 )
 
@@ -67,6 +68,7 @@ Overview.propTypes = {
     filters: PropTypes.node.isRequired,
     listEditDropdown: PropTypes.node.isRequired,
     showListDropdown: PropTypes.bool.isRequired,
+    renderDragElement: PropTypes.node.isRequired,
     // showTooltip: PropTypes.bool.isRequired,
     // toggleShowTooltip: PropTypes.func.isRequired,
     // tooltip: PropTypes.object,
