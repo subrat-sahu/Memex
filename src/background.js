@@ -4,6 +4,7 @@ import 'src/activity-logger/background'
 import 'src/search/background'
 import 'src/analytics/background'
 import DirectLinkingBackground from 'src/direct-linking/background'
+import CustomListBackground from 'src/custom-lists/background'
 import 'src/omnibar'
 import { installTimeStorageKey } from 'src/imports/background'
 import {
@@ -135,3 +136,6 @@ const directLinking = new DirectLinkingBackground({ storageManager })
 directLinking.setupRemoteFunctions()
 directLinking.setupRequestInterceptor()
 window.directLinking = directLinking
+
+const customList = new CustomListBackground({ storageManager })
+customList.setupRemoteFunctions()
