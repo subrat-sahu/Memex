@@ -274,14 +274,14 @@ class OverviewContainer extends Component {
         }
 
         return (
-            <span
+            <div
                 id="dragged-element"
                 className={localStyles.dragElement}
                 href="#"
             >
                 {' '}
                 Add {pagesDragged} page(s)
-            </span>
+            </div>
         )
     }
 
