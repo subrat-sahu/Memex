@@ -402,7 +402,11 @@ class PopupContainer extends Component {
 
         if (listMode) {
             return (
-                <AddListDropdownContainer mode="popup" results={dummyLists} />
+                <AddListDropdownContainer
+                    mode="popup"
+                    results={dummyLists}
+                    url={this.state.url}
+                />
             )
         }
 
