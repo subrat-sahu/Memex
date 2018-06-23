@@ -111,7 +111,7 @@ export class StorageManager implements ManageableStorage {
         const collection = this.registry.collections[collectionName]
         StorageManager._processIndexedFields(collection, object)
 
-        await this._storage[collectionName].put(object)
+        return await this._storage[collectionName].put(object)
     }
 
     /**
