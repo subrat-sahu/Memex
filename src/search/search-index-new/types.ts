@@ -17,8 +17,9 @@ export interface SearchParams {
     bookmarks: boolean
     endDate?: number
     startDate?: number
-    skip: number
-    limit: number
+    skip?: number
+    limit?: number
+    lists: string[]
 }
 
 export interface FilteredURLs {
@@ -73,5 +74,5 @@ export interface PageContent {
 }
 
 export abstract class FeatureStorage {
-    constructor(protected storageManager: ManageableStorage) {}
+    constructor(protected storageManager: ManageableStorage) { }
 }
