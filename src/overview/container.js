@@ -380,7 +380,7 @@ const mapDispatchToProps = dispatch => ({
     handleToggleUrlToEdit: ({ url }) => () =>
         dispatch(listActs.toggleUrlToEdit(url)),
     handleCrossRibbonClick: ({ url }) => event => {
-        // dispatch(listActs.delPageFromList(url))
+        dispatch(listActs.delPageFromList(url))
         dispatch(actions.hideResultItem(url))
     },
 })
