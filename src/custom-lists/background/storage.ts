@@ -97,11 +97,16 @@ export default class CustomListStorage extends FeatureStorage {
 
     // TODO: Maybe send the full name list object
     async updateListName({ id, name }) {
-        await this.storageManager.putObject(COLLECTION_NAME, {
-            id,
-            name,
-            createdAt: new Date(),
-        })
+        console.log(typeof id, name);
+        await this.storageManager.updateObject(COLLECTION_NAME, {
+            id
+        },
+            {
+                $set: {
+                    name,
+                    createdAt: new Date(),
+                }
+            })
     }
 
     // Delete List from the DB.
