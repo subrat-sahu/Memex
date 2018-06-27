@@ -97,6 +97,11 @@ export interface ManageableStorage extends RegisterableStorage {
         filter: FilterQuery<T>,
         update,
     ): Promise<number>
+    suggest<T>(
+        collectionName: string,
+        filter: FilterQuery<T>,
+        opts?: FindOpts,
+    ): any
     _finishInitialization(storage): void
 }
 
