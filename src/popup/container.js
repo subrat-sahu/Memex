@@ -45,6 +45,8 @@ class PopupContainer extends Component {
         this.deletePagesByDomain = remoteFunction('delPagesByDomain')
         this.removeBookmarkByUrl = remoteFunction('delBookmark')
         this.createBookmarkByUrl = remoteFunction('addBookmark')
+        this.listsContainingPage = remoteFunction('getListAssocPage')
+        this.fetchAllList = remoteFunction('getAllLists')
     }
 
     state = {
@@ -113,7 +115,25 @@ class PopupContainer extends Component {
     }
 
     async getInitPageData() {
-        return { page: await this.pageLookup(this.state.url) }
+        const listsAssocWithPage = await this.listsContainingPage({
+            url: this.state.url,
+        })
+
+        // Get ids of all the lists associated with the page.
+        const listIds = listsAssocWithPage.map(({ id }) => id)
+
+        // Get rest 20 lists not associated with the page.
+        const lists = await this.fetchAllList({
+            query: {
+                id: { $nin: listIds },
+            },
+            opts: { limit: 20 },
+        })
+        return {
+            page: await this.pageLookup(this.state.url),
+            initSuggestions: [...listsAssocWithPage, ...lists],
+            lists: listsAssocWithPage,
+        }
     }
 
     async getInitPauseState() {
@@ -404,7 +424,8 @@ class PopupContainer extends Component {
             return (
                 <AddListDropdownContainer
                     mode="popup"
-                    results={dummyLists}
+                    results={this.state.lists}
+                    initSuggestions={this.state.initSuggestions}
                     url={this.state.url}
                 />
             )
