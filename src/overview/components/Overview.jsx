@@ -16,12 +16,6 @@ const showFilterClass = ({ showFilters }) =>
         [styles.hideFilter]: !showFilters,
     })
 
-const showListDropdown = ({ showListDropdown }) =>
-    classNames({
-        [styles.filtersContainer]: true,
-        [styles.hideFilter]: !showListDropdown,
-    })
-
 const Overview = props => (
     <Wrapper>
         <Head />
@@ -37,7 +31,6 @@ const Overview = props => (
         <ListSideBar />
 
         <ShareButtons />
-        <div className={showListDropdown(props)}>{props.listEditDropdown}</div>
         <div className={showFilterClass(props)}>{props.filters}</div>
         <div
             className={styles.main}
